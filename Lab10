@@ -1,0 +1,19 @@
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(),q= sc.nextInt();
+        int[] arr = new int[n+1];
+        for(int i =0;i<q;i++){
+            int start = sc.nextInt(),end=sc.nextInt(),value=sc.nextInt();
+            arr[start]+=value;
+            if(end+1<=n) arr[end+1]-=value;
+        }
+        int maxVal=0,currentSum=0;
+        for(int i = 1; i<=n; i++){
+            currentSum+= arr[i];
+            maxVal=Math.max(maxVal,currentSum);
+        }
+        System.out.println(maxVal);
+    }
+}
