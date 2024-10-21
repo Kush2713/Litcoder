@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        String input=sc.nextLine().trim();
+        String[] elements=input.split("\\s+");
+        int n=elements.length;
+        
+        if(n<1 || n>10){
+            System.out.println("Array size must be between 1 and 10");
+            return;
+        }
+        
+        int[]array=new int[n];
+        for(int i=0;i<n;i++){
+            try{
+                array[i]=Integer.parseInt(elements[i]);
+                if(array[i]<-10 || array[i]>10){
+                    System.out.println("Arrays elements must be from -10 to 10");
+                    return;
+                }
+            } catch(NumberFormatException e){
+                System.out.println("Array element must be integers");
+                return;
+            }
+        }
+        
+        boolean hasZeroSumSubarray=false;
+        for(int start=0;start<n;start++){
+            int sum=0;
+            for(int end=start;end<n;end++){
+                sum+=array[end];
+                if(sum==0){
+                    hasZeroSumSubarray=true;
+                    break;
+                    
+                }
+            }
+            if(hasZeroSumSubarray){
+                break;
+            }
+        }
+        System.out.println(hasZeroSumSubarray ? "True" : "False");
+        System.out.println(n);
+        
+        sc.close();
+    }
+}
