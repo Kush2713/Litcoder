@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        String firstArray=sc.nextLine().trim();
+        String secondArray=sc.nextLine().trim();
+        String thirdArray=sc.nextLine().trim();
+        
+        int[] arr1=convertToArray(firstArray);
+        int[] arr2=convertToArray(secondArray);
+        int[] arr3=convertToArray(thirdArray);
+        
+        findCommonElements(arr1, arr2, arr3);
+        
+        sc.close();
+    }
+    private static int []convertToArray(String input){
+        String [] parts=input.split(" ");
+        int[]result=new int[parts.length];
+        
+        for(int i=0;i<parts.length;i++){
+            result[i]=Integer.parseInt(parts[i]);
+        }
+        return result;
+    }
+    private static void findCommonElements(int[]arr1,int[]arr2,int[]arr3){
+        StringBuilder commonElements=new StringBuilder();
+        int i=0,j=0,k=0;
+        
+        while(i<arr1.length && j<arr2.length && k<arr3.length){
+            if(arr1[i]==arr2[j] && arr2[j]==arr3[k]){
+                if(commonElements.length()>0){
+                    commonElements.append(" ");
+                }
+                commonElements.append(arr1[i]);
+                i++;
+                j++;
+                k++;
+            } else if(arr1[i]<arr2[j]){
+                i++;
+            } else if(arr2[j]<arr3[k]){
+                j++;
+            } else{
+                k++;
+            }
+        }
+        if(commonElements.length()>0){
+            System.out.println(commonElements);
+        } else{
+            System.out.println("No Elements");
+        }
+    }
+}
