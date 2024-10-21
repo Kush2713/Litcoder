@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        int availableHours=sc.nextInt();
+        int totalDevices=sc.nextInt();
+        
+        if(availableHours<4){
+            System.out.println("Invalid Input");
+        } else{
+            int devicesTested=availableHours/4;
+            int remainingDevices=totalDevices-devicesTested;
+            
+            System.out.println(devicesTested);
+            System.out.println(remainingDevices);
+        }
+        
+        sc.close();
+    }
+}
