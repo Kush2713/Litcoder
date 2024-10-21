@@ -1,0 +1,42 @@
+import java.util.*;
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        System.out.println(findLargestSpecialPrime(x));
+    }
+
+    public static int findLargestSpecialPrime(int limit) {
+        for (int num = limit - 1; num > 1; num--) {
+            if (isPrime(num) && isSpecialPrime(num)) {
+                return num;
+            }
+        }
+        return -1; 
+    }
+
+    private static boolean isPrime(int num) {
+        if (num < 2) {
+            return false;
+        }
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isSpecialPrime(int num) {
+        String numStr = Integer.toString(num);
+
+        for (int i = 1; i <= numStr.length(); i++) {
+            int prefix = Integer.parseInt(numStr.substring(0, i));
+            if (!isPrime(prefix)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
