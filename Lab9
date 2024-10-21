@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        String charlieInput=sc.nextLine().trim();
+        String[] charlieScoresStr=charlieInput.split(" ");
+        int[] charlieScores=new int[charlieScoresStr.length];
+        
+        for(int i=0;i<charlieScoresStr.length;i++){
+            charlieScores[i]=Integer.parseInt(charlieScoresStr[i]);
+        }
+        String daveInput=sc.nextLine().trim();
+        String[] daveScoresStr=daveInput.split(" ");
+        int[] daveScores=new int[daveScoresStr.length];
+        
+        for(int i=0;i<daveScoresStr.length;i++){
+            daveScores[i]=Integer.parseInt(daveScoresStr[i]);
+        }
+        int charliePoints=0;
+        int davePoints=0;
+        
+        for(int i=0;i<Math.min(charlieScores.length, daveScores.length);i++){
+            if(charlieScores[i]> daveScores[i]){
+                charliePoints++;
+            } else if(charlieScores[i]< daveScores[i]){
+                davePoints++;
+            }
+        }
+        System.out.println(charliePoints+" "+davePoints);
+        sc.close();
+    }
+}
