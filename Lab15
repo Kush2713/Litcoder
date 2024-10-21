@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+    private static final int MOD = 1000000007;
+    private static int power(int base, int exp) {
+        long result = 1;
+        long b = base;
+        while (exp > 0) {
+            if ((exp & 1) != 0) {
+                result = (result * b) % MOD;
+            }
+            b = (b * b) % MOD;
+            exp >>= 1;
+        }
+        return (int) result;
+    }
+    private static int[] getRowWays(int m) {
+        int[] rowWays = new int[m + 1];
+        rowWays[0] = 1; 
+
+        for (int i = 1; i <= m; i++) {
+            rowWays[i] = rowWays[i - 1];
+            if (i >= 2) rowWays[i] = (rowWays[i] + rowWays[i - 2]) % MOD;
+            if (i >= 3) rowWays[i] = (rowWays[i] + rowWays[i - 3]) % MOD;
+            if (i >= 4) rowWays[i] = (rowWays[i] + rowWays[i - 4]) % MOD;
+        }
+        return rowWays;
+    }
+    private static int legoWall(int n, int m) {
+        int[] rowWays = getRowWays(m);
+        int[] totalWays = new int[m + 1];
+        int[] validWays = new int[m + 1];
+
+        for (int i = 0; i <= m; i++) {
+            totalWays[i] = power(rowWays[i], n);
+        }
+
+        for (int i = 1; i <= m; i++) {
+            validWays[i] = totalWays[i];
+            for (int j = 1; j < i; j++) {
+                validWays[i] = (validWays[i] - validWays[j] * totalWays[i - j] % MOD + MOD) % MOD;
+            }
+        }
+        return validWays[m];
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        scanner.close();
+
+        System.out.println(legoWall(n, m));
+    }
+}
