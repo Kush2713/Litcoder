@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        String input=sc.nextLine().trim();
+        String[] numbers =input.split("\\s+");
+        StringBuilder pin=new StringBuilder();
+        
+        for(String number : numbers){
+            int cumulativeSum= getCumulativeSum(Integer.parseInt(number));
+            
+            if(cumulativeSum%2 !=0){
+                char letter=(char) ('a'+cumulativeSum-1);
+                pin.append(letter);
+            } else{
+                pin.append(cumulativeSum);
+            }
+        }
+        System.out.println(pin.toString());
+        sc.close();
+    }
+    private static int getCumulativeSum(int number){
+        int sum=0;
+        while(number>0 || sum>9){
+            if(number==0){
+                number=sum;
+                sum=0;
+            }
+            sum+=number%10;
+            number/=10;
+        }
+        return sum;
+    }
+}
